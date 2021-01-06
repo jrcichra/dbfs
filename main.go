@@ -32,6 +32,7 @@ func run(dsn, mountpoint string) error {
 	srv := fs.New(c, nil)
 	filesys := &FS{
 		handle: handle,
+		common: &Common{curInode: 2},
 	}
 	if err := srv.Serve(filesys); err != nil {
 		return err

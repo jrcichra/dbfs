@@ -17,6 +17,7 @@ type FS struct {
 	handle    *sql.DB
 	aFile     *File
 	databases *DatabasesDir
+	common    *Common
 }
 
 var _ fs.FS = (*FS)(nil)
@@ -48,7 +49,7 @@ func (d *RootDir) Lookup(ctx context.Context, name string) (fs.Node, error) {
 		d.fs.aFile.content.Store("asdf")
 		return d.fs.aFile, nil
 	} else if name == "databases" {
-		d.fs.databases = &DatabasesDir{}
+		d.fs.databases = &DatabasesDir{fs: d.fs}
 		return d.fs.databases, nil
 	}
 	return nil, syscall.ENOENT
