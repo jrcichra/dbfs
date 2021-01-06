@@ -36,5 +36,5 @@ func (d *DatabasesDir) Lookup(ctx context.Context, name string) (fs.Node, error)
 
 func (d *DatabasesDir) ReadDirAll(ctx context.Context) ([]fuse.Dirent, error) {
 	log.Println("[d *DatabasesDir ReadDirAll]")
-	return dirDirs, nil
+	return nil, nil
 }
