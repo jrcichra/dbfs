@@ -25,14 +25,14 @@ func (d *DatabasesDir) Attr(ctx context.Context, a *fuse.Attr) error {
 
 func (d *DatabasesDir) Lookup(ctx context.Context, name string) (fs.Node, error) {
 	log.Println("[d *DatabasesDir Lookup] name=", name)
-	return &DatabaseDir{fs: d.fs}, nil
+	return &DatabaseDir{fs: d.fs, name: name}, nil
 }
 
 func (d *DatabasesDir) ReadDirAll(ctx context.Context) ([]fuse.Dirent, error) {
 	log.Println("[d *DatabasesDir ReadDirAll]")
 
 	// Generate a directory per line of 'show databases'
-	res, _ := d.fs.handle.Query("SHOW DATABASES")
+	res, _ := d.fs.handle.QueryContext(context.TODO(), "SHOW DATABASES")
 
 	dirs := make([]fuse.Dirent, 0)
 

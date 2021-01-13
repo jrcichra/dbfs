@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"database/sql"
 	"flag"
 	"log"
@@ -15,7 +16,11 @@ import (
 
 func run(dsn, mountpoint string) error {
 	// connect to the db
-	handle, err := sql.Open("mysql", dsn)
+	h, err := sql.Open("mysql", dsn)
+	if err != nil {
+		panic(err)
+	}
+	handle, err := h.Conn(context.TODO())
 	if err != nil {
 		panic(err)
 	}

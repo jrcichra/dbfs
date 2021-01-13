@@ -14,7 +14,7 @@ import (
 )
 
 type FS struct {
-	handle    *sql.DB
+	handle    *sql.Conn
 	aFile     *File
 	databases *DatabasesDir
 	common    *Common
